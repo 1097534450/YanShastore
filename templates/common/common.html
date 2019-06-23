@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!--公共页面头 CSS文件-->
+<head th:fragment="commonCssHeader">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <!--BootStrap-->
+    <link rel="stylesheet" href="/common/bootstrap-3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="/common/bootstrap-3.3.7/css/bootstrap-theme.css">
+    <!--弹框插件-->
+    <link rel="stylesheet" href="/common/toastr/toastr.min.css">
+    <!--图标库-->
+    <link rel="stylesheet" href="/common/Ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="/common/font-awesome/css/font-awesome.min.css">
+    <!--datatable -->
+    <link rel="stylesheet" href="/common/datatables/css/jquery.dataTables.css">
+    <!--个人CSS抽取-->
+    <link rel="stylesheet" href="/common/macxi/css/common.css">
+
+    <!--调整引用-->
+    <link rel="stylesheet" href="/dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="/common/admin/AdminLTE.css">
+    <link rel="stylesheet" href="/common/admin/x-main.css">
+    <link rel="stylesheet" href="/common/macxi/css/public-common.css">
+
+    <title>燕莎</title>
+
+</head>
+
+<!--公共页面脚 JS文件-->
+<body>
+    <footer th:fragment="commonJsFooter">
+
+        <!--外部JS引用-->
+        <!--JQuery-->
+        <script src="/common/jquery/jquery-3.3.1.js"></script>
+        <!--DataTables-->
+        <script src="/common/datatables/js/jquery.dataTables.js"></script>
+        <!--BootStrap-->
+        <script src="/common/bootstrap-3.3.7/js/bootstrap.js"></script>
+        <!--弹框插件-->
+        <script src="/common/toastr/toastr.min.js"></script>
+
+        <!--个人JS引用-->
+        <script src="/common/macxi/js/common.js"></script>
+        <script src="/common/macxi/js/systemdata.js"></script>
+        <script src="/common/macxi/js/processingdata.js"></script>
+        <script src="/common/macxi/js/processingpage.js"></script>
+    </footer>
+</body>
+</html>
+

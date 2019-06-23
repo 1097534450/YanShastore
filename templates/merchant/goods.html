@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="common/common::commonCssHeader"></head>
+<body>
+<section class="content-header">
+    <h1>商家
+        <small>&nbsp;&nbsp;&nbsp;&nbsp;商品管理</small>
+    </h1>
+</section>
+<section class="content">
+    <div class="box add">
+        <!--新增按钮-->
+        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addActivity">新增商品</button>
+        <input type="hidden" id="userName" th:value="${userName}"/>
+        <input type="hidden" id="userId" th:value="${userId}"/>
+        <!--table-->
+        <div class="box-right">
+            <div class="table-responsive">
+                <table id="showActivity" class="table text-nowrap table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>商品编号</th>
+                        <th>商品名</th>
+                        <th>商品价格</th>
+                        <th>商品详情</th>
+                        <th>是否上架</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <!--新增模拟框-->
+        <div class="modal fade" id="addActivity" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
+                        </button>
+                        <h4 class="modal-title">新增商品</h4>
+                    </div>
+                    <div class="modal-body" style="height: 610px">
+                        <div class="form-group">
+                            <label for="newName"
+                                   class="col-md-3 control-label col-md-offset-1">商品名称:</label>
+                            <div class="col-md-5">
+                                <input
+                                        type="text" class="form-control" id="newName" value=""
+                                        name="addResourcePath">
+                            </div>
+                            <div class="col-md-3">
+                                <p style="color: red; height: 34px; line-height: 34px;">*</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword"
+                                   class="col-md-3 control-label col-md-offset-1">简介:</label>
+                            <div class="col-md-5">
+                                <input
+                                        type="text" class="form-control" id="newPassword" value=""
+                                        name="addResourcePath">
+                            </div>
+                            <div class="col-md-3">
+                                <p style="color: red; height: 34px; line-height: 34px;">*</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newPrice"
+                                   class="col-md-3 control-label col-md-offset-1">价格:</label>
+                            <div class="col-md-5">
+                                <input
+                                        type="text" class="form-control" id="newPrice" value=""
+                                        name="addResourcePath">
+                            </div>
+                            <div class="col-md-3">
+                                <p style="color: red; height: 34px; line-height: 34px;">*</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="previewImage"
+                                   class="col-md-3 control-label col-md-offset-1">预览图:</label>
+                            <div class="col-md-5">
+                                <input type="file" class="form-control" id="previewFile" name="file" multiple="multiple"
+                                       th:onchange="javascript:preview(this)">
+                                <div id="preview">
+                                    <img style="width: 100px;display:none" id="previewImage"/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <p style="color: red; height: 34px; line-height: 34px;">*</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="referralImage"
+                                   class="col-md-3 control-label col-md-offset-1">介绍图:</label>
+                            <div class="col-md-5">
+                                <input type="file" class="form-control" id="referralFile" name="file"
+                                       multiple="multiple" th:onchange="javascript:showReferral(this)">
+                                <div id="referral">
+                                    <img style="width: 100px;display:none" id="referralImage"/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <p style="color: red; height: 34px; line-height: 34px;">*</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="detailImage"
+                                   class="col-md-3 control-label col-md-offset-1">详情图:</label>
+                            <div class="col-md-5">
+                                <div id="inputBox">
+                                    <input type="file" class="form-control" name="file" id="file" multiple="multiple"/>
+                                </div>
+                                <div id="detailImage">
+                                    <img style="width: 100px;display:none"/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <p style="color: red; height: 34px; line-height: 34px;">*</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newContent"
+                                   class="col-md-3 control-label col-md-offset-1">详情:</label>
+                            <div class="col-md-5">
+                                <textarea class="form-control" id="newContent" rows="4"></textarea>
+                            </div>
+                            <div class="col-md-3">
+                                <p style="color: red; height: 34px; line-height: 34px;">*</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newType"
+                                   class="col-md-3 control-label col-md-offset-1">商品类型:</label>
+                            <div class="col-md-5">
+                                <select id="newType">
+                                    <option value="1">男士/女士</option>
+                                    <option value="2">儿童/玩具</option>
+                                    <option value="3">家电/数码</option>
+                                    <option value="4">游戏/动漫</option>
+                                    <option value="5">美食/零食</option>
+                                    <option value="6">工具/建材</option>
+                                    <option value="7">家具/家饰</option>
+                                    <option value="8">百货/家庭保健</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <p style="color: red; height: 34px; line-height: 34px;">*</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newUse"
+                                   class="col-md-3 control-label col-md-offset-1">是否上架:</label>
+                            <div class="col-md-5">
+                                <select id="newUse">
+                                    <option value="1">上架</option>
+                                    <option value="0">不上架</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <p style="color: red; height: 34px; line-height: 34px;">*</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                        <button type="button" class="btn btn-primary" id="commit">提交</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+        <!--修改模拟框-->
+        <div class="modal fade" id="upActivity" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
+                        </button>
+                        <h4 class="modal-title">修改商家</h4>
+                        <input style="display: none" id="activityId">
+                    </div>
+                    <div class="modal-body" style="height: 162px">
+                        <div class="form-group">
+                            <label for="upName"
+                                   class="col-md-3 control-label col-md-offset-1">商家名称:</label>
+                            <div class="col-md-5">
+                                <input
+                                        type="text" class="form-control" id="upName">
+                            </div>
+                            <div class="col-md-3">
+                                <p style="color: red; height: 34px; line-height: 34px;">*</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="upContent"
+                                   class="col-md-3 control-label col-md-offset-1">商家资料:</label>
+                            <div class="col-md-5">
+                                <textarea class="form-control" id="upContent" rows="4"></textarea>
+                            </div>
+                            <div class="col-md-3">
+                                <p style="color: red; height: 34px; line-height: 34px;">*</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="upPassword"
+                                   class="col-md-3 control-label col-md-offset-1">密码:</label>
+                            <div class="col-md-5">
+                                <input
+                                        type="text" class="form-control" id="upPassword" value=""
+                                        name="addResourcePath">
+                            </div>
+                            <div class="col-md-3">
+                                <p style="color: red; height: 34px; line-height: 34px;">*</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="upUse"
+                                   class="col-md-3 control-label col-md-offset-1">是否启用:</label>
+                            <div class="col-md-5">
+                                <select id="upUse">
+                                    <option value="1">启用</option>
+                                    <option value="0">停用</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <p style="color: red; height: 34px; line-height: 34px;">*</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="upActivity()">提交</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+    </div>
+</section>
+<footer th:include="common/common::commonJsFooter"></footer>
+</body>
+<script>
+    //字段
+    var activityColumns = [
+        {
+            "data": "id",
+            width: "20%",
+        },
+        {
+            "data": "name",
+            width: "20%",
+        },
+        {
+            "data": "price",
+            width: "10%",
+            render: function (data, type, full, meta) {
+                return data / 100;
+            }
+        },
+        {
+            "data": "detail",
+            width: "40%",
+            render: function (data, type, full, meta) {
+                return data.length >= 50 ? data.substr(0, 50) + "..." : data;
+
+            }
+        }, {
+            "data": "isPutaway",
+            width: "10%",
+            render: function (data, type, full, meta) {
+                if (data == 1) {
+                    return "上架"
+                }
+                if (data == 0) {
+                    return "未上架"
+                }
+
+            }
+        },
+        {
+            "data": "id",
+            width: "10%",
+            render: function (data, type, full, meta) {
+                return '<a href="#" class="qaEditTitleALink" onclick="onoFF(' + data + ')">上架</a>&nbsp;&nbsp;&nbsp;'
+                    + '<a href="#" class="qaEditTitleALink" onclick="del(' + data + ')">删除</a>';
+
+            }
+        }];
+    //地址
+    var showTableUrl = "/goods/page";
+    var updateUrl = "/goods/update";
+    var delUrl = "/goods/delete";
+    var addUrl = "/goods/save";
+    var userId;
+    var userName;
+    $(function () {
+        userId = $("#userId").val();
+        userName = $("#userName").val();
+        var param = {
+            userId: userId
+        }
+        //渲染
+        loadPageData("showActivity", showTableUrl, activityColumns, param);
+    })
+
+    function onoFF(id) {
+        var param = {
+            id: id,
+            isPutaway: 1
+        }
+        var data = ajaxSendData(updateUrl, param, false);
+        if (data) {
+            toastr.success('修改成功');
+            //刷新表格
+            reload("showActivity");
+        }
+    }
+
+
+    //删除
+    function del(id) {
+        var param = {
+            id: id
+        }
+        var data = ajaxSendData(delUrl, param, false);
+        if (data) {
+            toastr.success('删除成功');
+            //刷新表格
+            reload("showActivity");
+        }
+    }
+
+    //打开修改模拟框页面
+    function showUpdateActitity(data) {
+        //回显
+        $("#activityId").val(data.id);
+        $("#upName").val(data.name);
+        $("#upContent").val(data.detail);
+        $('#upActivity').modal("show");
+    }
+
+
+    //新增模拟框关闭时
+    $('#addActivity').on('hidden.bs.modal', function () {
+        $("#newName").val("");
+        $("#newContent").val("");
+    })
+    //修改模拟框关闭时
+    $('#upActivity').on('hidden.bs.modal', function () {
+        $("#activityId").val("");
+        $("#upName").val("");
+        $("#upContent").val("");
+    })
+
+    /*************************上传图片*****************************************/
+    //预览图
+    function preview(file) {
+        $("#previewImage").css("display", "none");
+        var prevDiv = document.getElementById('preview');
+        if (file.files && file.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (evt) {
+                prevDiv.innerHTML = '<img style="width: 100px;" src="' + evt.target.result + '" />';
+            }
+            reader.readAsDataURL(file.files[0]);
+        } else {
+            prevDiv.innerHTML = '<div class="img" style="width: 100px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' +
+                file.value + '\'"></div>';
+        }
+    }
+
+    //介绍图
+    function showReferral(file) {
+        $("#referralImage").css("display", "none");
+        var prevDiv = document.getElementById('referral');
+        if (file.files && file.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (evt) {
+                prevDiv.innerHTML = '<img style="width: 100px;" src="' + evt.target.result + '" />';
+            }
+            reader.readAsDataURL(file.files[0]);
+        } else {
+            prevDiv.innerHTML = '<div class="img" style="width: 100px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' +
+                file.value + '\'"></div>';
+        }
+    }
+
+    imgUpload({
+        inputId: 'file', //input框id
+        imgBox: 'detailImage', //图片容器id
+        buttonId: 'btn', //提交按钮id
+        upUrl: '/goods/save',  //提交地址
+        data: 'file', //参数名
+        num: "3"//最多上传图片个数
+    })
+    var imgSrc = [];  //存放图片路径
+    var imgFile = []; //存放文件流
+    var imgName = []; //存放图片名字
+    //详情图
+    //选择图片的操作
+    function imgUpload(obj) {
+        var oInput = '#' + obj.inputId;
+        var imgBox = '#' + obj.imgBox;
+        var btn = '#' + obj.buttonId;
+        //用on是因为它可以动态的绑定事件
+        $(oInput).on("change", function () {
+            //获取type=file的input
+            var fileImg = $(oInput)[0];
+            //得到所有的图片列表
+            var fileList = fileImg.files;
+            for (var i = 0; i < fileList.length; i++) {
+                //得到每个图片的路径
+                var imgSrcI = getObjectURL(fileList[i]);
+                //向文件名的数组末尾添加此文件名
+                imgName.push(fileList[i].name);
+                //向路径的数组末尾添加路径
+                imgSrc.push(imgSrcI);
+                //在文件流数组的末尾添加文件
+                imgFile.push(fileList[i]);
+            }
+            //将图片展示出去
+            addNewContent(imgBox);
+        })
+
+        $("#commit").on('click', function () {
+            var simgle = $("#newPassword").val();
+            if (simgle.length > 14) {
+                toastrAlert("error", "简介不能超过14个字");
+                return;
+            }
+            if (isNaN($("#newPrice").val())) {
+                toastrAlert("error", "价格请输入数字");
+                return;
+            }
+            //将需要提交的参数封装起来
+            var formData = new FormData();
+            var previewImage = $("#previewFile")[0].files[0];//预览图
+            console.log("previewImage", previewImage);
+            var referralImage = $("#referralFile")[0].files[0];//介绍图
+            console.log("referralImage", referralImage);
+            formData.append("previewImage", previewImage);
+            formData.append("referralImage", referralImage);
+            for (var i = 0; i < imgFile.length; i++) {
+                formData.append("detailImage" + i, imgFile[i]);
+                console.log("detailImage" + i, imgFile[i]);
+            }
+            formData.append("name", $("#newName").val());
+            formData.append("detail", $("#newContent").val());
+            formData.append("price", $("#newPrice").val() * 100);
+            formData.append("simplenessDetail", $("#newPassword").val());
+            formData.append("isPutaway", $("#newUse").val());
+            formData.append("type", $("#newType").val());
+            formData.append("userId", Number(userId));
+            formData.append("merchantName", userName);
+            //上传所有的图片
+            submitPicture(obj.upUrl, formData);
+        })
+    }
+
+    var num = 0;
+
+    //图片展示
+    function addNewContent(obj) {
+        num = num + 1;
+        if (num > 3) {
+            toastrAlert("error", "只能上传3张图片");
+            return;
+        }
+        $("#detailImage").empty();
+        for (var a = 0; a < imgSrc.length; a++) {
+            var oldBox = $(obj).html();
+            $(obj).html(oldBox + '<img style="width:100px;"  title=' + imgName[a] + ' alt=' + imgName[a] + ' src=' + imgSrc[a] + '>');
+        }
+    }
+
+    //限制图片个数
+    function limitNum(num) {
+        if (num > 3) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    //上传(将文件流数组传到后台)
+    function submitPicture(url, data) {
+        if (url && data) {
+            $.ajax({
+                type: "post",
+                url: url,
+                async: true,
+                data: data,
+                //下面这两个要写成false，要不然上传不了。
+                processData: false,
+                contentType: false,
+                success: function (dat) {
+                    toastr.success('新增成功');
+                    //关闭新增模拟框
+                    $("#addActivity").modal("hide");
+                    //刷新表格
+                    reload("showActivity");
+                }
+            });
+        } else {
+            toastrAlert("error", "数据格式不正确");
+        }
+    }
+
+    //图片预览路径
+    function getObjectURL(file) {
+        var url = null;
+        if (window.createObjectURL != undefined) { // basic
+            url = window.createObjectURL(file);
+        } else if (window.URL != undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL != undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+    }
+
+</script>
+</html>

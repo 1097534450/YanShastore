@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="common/common::commonCssHeader"></head>
+<body>
+<section class="content-header">
+    <h1>管理员
+        <small>&nbsp;&nbsp;&nbsp;&nbsp;商家管理</small>
+    </h1>
+</section>
+<section class="content">
+    <div class="box add">
+        <!--新增按钮-->
+        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addActivity">新增商家</button>
+        <!--table-->
+        <div class="box-right">
+            <div class="table-responsive">
+                <table id="showActivity" class="table text-nowrap table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>商家名称</th>
+                        <th>商家信息</th>
+                        <th>是否启用</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <!--新增模拟框-->
+        <div class="modal fade" id="addActivity" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
+                        </button>
+                        <h4 class="modal-title">新增商家</h4>
+                    </div>
+                    <div class="modal-body" style="height: 235px">
+                        <div class="form-group">
+                            <label for="newName"
+                                   class="col-md-3 control-label col-md-offset-1">商家名称:</label>
+                            <div class="col-md-5">
+                                <input
+                                        type="text" class="form-control" id="newName" value=""
+                                        name="addResourcePath">
+                            </div>
+                            <div class="col-md-3">
+                                <p style="color: red; height: 34px; line-height: 34px;">*</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newContent"
+                                   class="col-md-3 control-label col-md-offset-1">商家资料:</label>
+                            <div class="col-md-5">
+                                <textarea class="form-control" id="newContent" rows="4"></textarea>
+                            </div>
+                            <div class="col-md-3">
+                                <p style="color: red; height: 34px; line-height: 34px;">*</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword"
+                                   class="col-md-3 control-label col-md-offset-1">密码:</label>
+                            <div class="col-md-5">
+                                <input
+                                        type="text" class="form-control" id="newPassword" value=""
+                                        name="addResourcePath">
+                            </div>
+                            <div class="col-md-3">
+                                <p style="color: red; height: 34px; line-height: 34px;">*</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newUse"
+                                   class="col-md-3 control-label col-md-offset-1">是否启用:</label>
+                            <div class="col-md-5">
+                                <select id="newUse">
+                                    <option value="1">启用</option>
+                                    <option value="0">停用</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <p style="color: red; height: 34px; line-height: 34px;">*</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="addActivity()">提交</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+        <!--修改模拟框-->
+        <div class="modal fade" id="upActivity" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
+                        </button>
+                        <h4 class="modal-title">修改商家</h4>
+                        <input style="display: none" id="activityId">
+                    </div>
+                    <div class="modal-body" style="height: 162px">
+                        <div class="form-group">
+                            <label for="upName"
+                                   class="col-md-3 control-label col-md-offset-1">商家名称:</label>
+                            <div class="col-md-5">
+                                <input
+                                        type="text" class="form-control" id="upName">
+                            </div>
+                            <div class="col-md-3">
+                                <p style="color: red; height: 34px; line-height: 34px;">*</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="upContent"
+                                   class="col-md-3 control-label col-md-offset-1">商家资料:</label>
+                            <div class="col-md-5">
+                                <textarea class="form-control" id="upContent" rows="4"></textarea>
+                            </div>
+                            <div class="col-md-3">
+                                <p style="color: red; height: 34px; line-height: 34px;">*</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="upPassword"
+                                   class="col-md-3 control-label col-md-offset-1">密码:</label>
+                            <div class="col-md-5">
+                                <input
+                                        type="text" class="form-control" id="upPassword" value=""
+                                        name="addResourcePath">
+                            </div>
+                            <div class="col-md-3">
+                                <p style="color: red; height: 34px; line-height: 34px;">*</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="upUse"
+                                   class="col-md-3 control-label col-md-offset-1">是否启用:</label>
+                            <div class="col-md-5">
+                                <select id="upUse">
+                                    <option value="1">启用</option>
+                                    <option value="0">停用</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <p style="color: red; height: 34px; line-height: 34px;">*</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="upActivity()">提交</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+    </div>
+</section>
+<footer th:include="common/common::commonJsFooter"></footer>
+</body>
+<script>
+    //字段
+    var activityColumns = [
+        {
+            "data": "name",
+            width: "20%",
+        },
+        {
+            "data": "detail",
+            width: "60%"
+        }, {
+            "data": "enable",
+            width: "10%",
+            render: function (data, type, full, meta) {
+                if (data == 1) {
+                    return "启用"
+                }
+                if (data == 0) {
+                    return "停用"
+                }
+
+            }
+        },
+        {
+            "data": "id",
+            width: "10%",
+            render: function (data, type, full, meta) {
+                return '<a  href="#" class="qaEditALink" onclick="showUpdateActitity('
+                    + JSON.stringify(full).replace(/"/g, '&quot;')
+                    + ')">' + ' 修改</a>'
+                    + '&nbsp;&nbsp;<a  href="#" class="qaEditALink" onclick="del(' + data
+                    + ')">' + ' 删除</a>'
+            }
+        }];
+    //地址
+    var showTableUrl = "/user/page";
+    var updateUrl = "/user/update";
+    var delUrl = "/user/delete";
+    var addUrl = "/user/save";
+    $(function () {
+        var param = {
+            roleId: 1
+        }
+        //渲染
+        loadPageData("showActivity", showTableUrl, activityColumns, param);
+    })
+
+    //添加
+    function addActivity() {
+        var param = {
+            name: $("#newName").val(),
+            detail: $("#newContent").val(),
+            enable: $("#newUse").val(),
+            password: $("#newPassword").val(),
+            roleId: 1
+        }
+        var data = ajaxSendData(addUrl, param, false);
+        if (data) {
+            toastr.success('新增成功');
+            //关闭新增模拟框
+            $("#addActivity").modal("hide");
+            //刷新表格
+            reload("showActivity");
+        }
+    }
+
+    //修改
+    function upActivity() {
+        var param = {
+            id: $("#activityId").val(),
+            name: $("#upName").val(),
+            detail: $("#upContent").val(),
+            enable: $("#upUse").val(),
+            password: $("#upPassword").val(),
+        }
+        var data = ajaxSendData(updateUrl, param, false);
+        if (data) {
+            toastr.success('修改成功');
+            //关闭新增模拟框
+            $("#upActivity").modal("hide");
+            //刷新表格
+            reload("showActivity");
+        }
+    }
+
+    //删除
+    function del(id) {
+        var param = {
+            id: id
+        }
+        var data = ajaxSendData(delUrl, param, false);
+        if (data) {
+            toastr.success('删除成功');
+            //刷新表格
+            reload("showActivity");
+        }
+    }
+
+    //打开修改模拟框页面
+    function showUpdateActitity(data) {
+        //回显
+        $("#activityId").val(data.id);
+        $("#upName").val(data.name);
+        $("#upContent").val(data.detail);
+        $('#upActivity').modal("show");
+    }
+
+
+    //新增模拟框关闭时
+    $('#addActivity').on('hidden.bs.modal', function () {
+        $("#newName").val("");
+        $("#newContent").val("");
+    })
+    //修改模拟框关闭时
+    $('#upActivity').on('hidden.bs.modal', function () {
+        $("#activityId").val("");
+        $("#upName").val("");
+        $("#upContent").val("");
+    })
+</script>
+</html>

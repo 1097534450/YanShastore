@@ -1,0 +1,290 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>商品详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="Fashionpress Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+    <link href="/user/css/bootstrap.css" rel='stylesheet' type='text/css'/>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- Custom Theme files -->
+    <link href="/user/css/style.css" rel='stylesheet' type='text/css'/>
+    <!-- Custom Theme files -->
+    <!--webfont-->
+    <link href='https://fonts.googleapis.com/css?family=Lato:100,200,300,400,500,600,700,800,900' rel='stylesheet'
+          type='text/css'>
+    <script type="text/javascript" src="/user/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="/user/js/hover_pack.js"></script>
+    <link rel="stylesheet" href="/user/css/etalage.css">
+    <script src="/user/js/jquery.etalage.min.js"></script>
+    <script src="/user/js/easyResponsiveTabs.js" type="text/javascript"></script>
+    <!--图标库-->
+    <link rel="stylesheet" href="/common/Ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="/common/font-awesome/css/font-awesome.min.css">
+    <!--BootStrap-->
+    <link rel="stylesheet" href="/common/bootstrap-3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="/common/bootstrap-3.3.7/css/bootstrap-theme.css">
+    <!--弹框插件-->
+    <link rel="stylesheet" href="/common/toastr/toastr.min.css">
+    <!--datatable -->
+    <link rel="stylesheet" href="/common/datatables/css/jquery.dataTables.css">
+    <!--提示框-->
+    <!-- <link rel="stylesheet" href="/user/css/sweetalert.css">-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="header">
+    <div class="header_top">
+        <div class="container">
+            <div class="logo">
+                <input type="hidden" id="goodsId" th:value="${goodsId}"/>
+                <input type="hidden" id="userId" th:value="${userId}"/>
+                <input type="hidden" id="userName" th:value="${userName}"/>
+                <a id="reIndex"><img src="/user/images/logo.png" alt=""/></a>
+            </div>
+            <ul class="shopping_grid">
+                <a href="/user/register">
+                    <li>注册</li>
+                </a>
+                <a href="/index">
+                    <li>登陆</li>
+                </a>
+                <a href="#" data-toggle="modal" data-target="#myModal">
+                    <li><span class="m_1">购物车</span><span id="goodsNum"></span><img src="/user/images/bag.png" alt=""/>
+                    </li>
+                </a>
+                <div class="clearfix"></div>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="h_menu4"><!-- start h_menu4 -->
+        <div class="container">
+            <a class="toggleMenu" href="#">Menu</a>
+            <ul class="nav">
+            </ul>
+            <script type="text/javascript" src="/user/js/nav.js"></script>
+        </div><!-- end h_menu4 -->
+    </div>
+</div>
+<div class="column_center">
+    <div class="container">
+        <div class="search">
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="main">
+    <div class="content_top">
+        <div class="container">
+            <div class="col-md-9 single_right">
+                <div class="single_top">
+                    <div class="single_grid">
+                        <div class="grid images_3_of_2">
+                            <ul id="etalage">
+                                <li>
+                                    <a href="/optionallink.html">
+                                        <img class="etalage_thumb_image img-responsive" id="original">
+                                        <!--src="/user/images/s2.jpg"-->
+                                        <img class="etalage_source_image img-responsive" id="magnify"
+                                        >
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="desc1 span_3_of_2">
+                            <h1 id="goodsName"></h1>
+                            <p class="availability">促销价(/每小时): <span class="color"></span></p>
+                            <div class="price_single">
+                                <span class="actual" id="price"></span>
+                            </div>
+                            <h2 class="quick">商品简介:</h2>
+                            <p class="quick_desc" id="goodsSimgle"></p>
+                            <div class="wish-list">
+                                <ul>
+                                    <li class="wish"><a href="#" onclick="getIt()">添加到购物车</a></li>
+                                </ul>
+                            </div>
+                            <div class="quantity_box">
+                                <ul class="product-qty">
+                                    <span>数量:</span>
+                                    <select id="nums">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                    </select>
+                                </ul>
+                                <ul class="single_social">
+                                    <li><a href="#"><i class="fb1"> </i> </a></li>
+                                    <li><a href="#"><i class="tw1"> </i> </a></li>
+                                    <li><a href="#"><i class="g1"> </i> </a></li>
+                                    <li><a href="#"><i class="linked"> </i> </a></li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <a href="#" title="Online Reservation"
+                               class="btn bt1 btn-primary btn-normal btn-inline " id="saveOrder">租下</a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="sap_tabs">
+                    <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
+                        <ul class="resp-tabs-list">
+                            <li class="resp-tab-item" aria-controls="tab_item-0" role="tab"><span>产品介绍</span></li>
+                            <li class="resp-tab-item" aria-controls="tab_item-1" role="tab"><span>商品详情</span></li>
+                            <li class="resp-tab-item" aria-controls="tab_item-2" role="tab"><span>用户评价</span><a
+                                    class="fa fa-pencil-square-o" data-toggle="modal" data-target="#modal"></a></li>
+                            <div class="clear"></div>
+                        </ul>
+                        <div class="resp-tabs-container">
+                            <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
+                                <div class="facts">
+                                    <ul class="tab_list">
+                                        <li><a href="#"> <img id="detailImage0" style="width: 789px"></a></li>
+                                        <li><a href="#"> <img id="detailImage1" style="width: 789px"></a></li>
+                                        <li><a href="#"> <img id="detailImage2" style="width: 789px"></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-1">
+                                <div class="facts">
+                                    <ul class="tab_list">
+                                        <li><a href="#" id="detail"></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-2">
+                                <ul class="tab_list" id="evaluateId">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer_bg">
+</div>
+<div class="footer">
+    <div class="container">
+        <div class="col-md-3 f_grid1">
+            <h3>About</h3>
+            <h4>燕莎商城</h4>
+            <p>我们的生产经营方式灵活多样，有标准生产，非标准生产，定牌生产，来图来样生产等等，能满足不同用户的各种需求。我们的产品深得市场的青睐，我们的产品已行销世界五十多个国家和地区。</p>
+        </div>
+        <div class="col-md-3 f_grid1 f_grid2">
+            <h3>关注我们</h3>
+            <ul class="social">
+                <li><a href=""> <i class="fb"> </i>
+                    <p class="m_3">Facebook</p>
+                    <div class="clearfix"></div>
+                </a></li>
+                <li><a href=""><i class="tw"> </i>
+                    <p class="m_3">Twittter</p>
+                    <div class="clearfix"></div>
+                </a></li>
+                <li><a href=""><i class="google"> </i>
+                    <p class="m_3">Google</p>
+                    <div class="clearfix"></div>
+                </a></li>
+                <li><a href=""><i class="instagram"> </i>
+                    <p class="m_3">Instagram</p>
+                    <div class="clearfix"></div>
+                </a></li>
+            </ul>
+        </div>
+        <div class="col-md-3 f_grid3">
+            <h3>Contact Info</h3>
+            <ul class="list">
+                <li><p>客服 : 123465</p></li>
+                <li><p>邮件 : <a href="mailto:info(at)fashionpress.com"> www.store.com</a></p></li>
+            </ul>
+            <ul class="list1">
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="footer_bottom">
+    <div class="container">
+        <div class="cssmenu">
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!-- 发布评论-->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">发布您的评论</h4>
+            </div>
+            <div class="modal-body">
+                <textarea id="appraiseDetail" style="width: 566px;height: 100px;">
+
+                </textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="saveAppraise()">提交</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!-- 购物车样式-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+     style="right: -900px;top: 39px;" data-backdrop="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <table id="carTable" class="table table-bordered table-striped dataTable no-footer">
+                    <thead>
+                    <tr>
+                        <th>商品名称</th>
+                        <th>购买数量</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="updateCart">
+                    租下
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--<script src="/user/js/sweetalert.min.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<!--BootStrap-->
+<script src="/common/bootstrap-3.3.7/js/bootstrap.js"></script>
+<!--DataTables-->
+<script src="/common/datatables/js/jquery.dataTables.js"></script>
+<script src="/user/js/single.js"></script>
+<script src="/common/toastr/toastr.min.js"></script>
+<script src="/common/macxi/js/common.js"></script>
+<script src="/common/macxi/js/systemdata.js"></script>
+<script src="/common/macxi/js/processingdata.js"></script>
+<script src="/common/macxi/js/processingpage.js"></script>
+</body>
+</html>		

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:include="common/common::commonCssHeader"></head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>燕莎</title>
+    <link rel="stylesheet" href="/index/auth.css">
+</head>
+
+<body style="background-image: url('/image/360wallpaper.jpg')">
+<div class="lowin">
+    <div class="lowin-brand">
+        <img src="/index/kodinger.jpg" alt="logo">
+    </div>
+    <div class="lowin-wrapper">
+        <div class="lowin-box lowin-register">
+            <div class="lowin-box-inner">
+                <form>
+                    <p style="color: #0c0c0c">登录</p>
+                    <div class="lowin-group">
+                        <label style="color: #0c0c0c">用户名</label>
+                        <input type="text" name="name" autocomplete="name" class="lowin-input" id="loginName">
+                    </div>
+                    <div class="lowin-group">
+                        <label style="color: #0c0c0c">密码</label>
+                        <input type="password" name="password" autocomplete="current-password" class="lowin-input"
+                               id="loginPassword">
+                    </div>
+                    <button class="lowin-btn" onclick="login()">
+                        登录
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:include="common/common::commonJsFooter"></div>
+<script>
+    function login() {
+        var param = {
+            name: $("#loginName").val(),
+            password: $("#loginPassword").val(),
+        }
+        var data = ajaxSendData("/user/login", param, false);
+        if (data.code == "0") {
+            alert(data.result);
+        } else {
+            var user = data.object;
+            if (data.result == "0") {
+                //管理员
+                window.location.href = "/admin/index?userId=" + user.id + "&userName=" + user.name;
+                window.event.returnValue = false
+            }
+            else if (data.result == "1") {
+                //商家
+                window.location.href = "/merchant/index?userId=" + user.id + "&userName=" + user.name;
+                window.event.returnValue = false
+            } else {
+                //用户
+                var src = "/store/index?userId=" + user.id + "&userName=" + user.name
+                window.location.href = src;
+                window.event.returnValue = false
+            }
+        }
+    }
+
+</script>
+</body>
+</html>
