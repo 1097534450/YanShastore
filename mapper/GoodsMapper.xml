@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.store.mapper.GoodsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.com.store.model.Goods">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="detail" property="detail" />
+        <result column="price" property="price" />
+        <result column="preview_image" property="previewImage" />
+        <result column="referral_image" property="referralImage" />
+        <result column="detail_image" property="detailImage" />
+        <result column="simpleness_detail" property="simplenessDetail" />
+        <result column="is_putaway" property="isPutaway" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, detail, price, preview_image AS previewImage, referral_image AS referralImage, detail_image AS detailImage, simpleness_detail AS simplenessDetail, is_putaway AS isPutaway, create_time AS createTime
+    </sql>
+
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.store.mapper.OrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <!--type返回值的全限定类名-->
+    <resultMap id="BaseResultMap" type="cn.com.store.model.Order">
+        <id column="id" property="id" />
+        <result column="goods_id" property="goodsId" />
+        <result column="goods_name" property="goodsName" />
+        <result column="goods_price" property="goodsPrice" />
+        <result column="goods_num" property="goodsNum" />
+        <result column="user_id" property="userId" />
+        <result column="user_name" property="userName" />
+        <result column="total" property="total" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, goods_id AS goodsId, goods_name AS goodsName, goods_price AS goodsPrice, goods_num AS goodsNum, user_id AS userId, user_name AS userName, total, create_time AS createTime
+    </sql>
+
+</mapper>
